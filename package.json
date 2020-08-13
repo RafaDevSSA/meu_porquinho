@@ -1,0 +1,21 @@
+{
+  "name": "meu_porquinho",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/RafaDevSSA/meu_porquinho.git",
+  "author": "Diego Guimarães Silverio da Silva <guimaraes.diegodev@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "postinstall": "cd ./packages/mobile && expo-yarn-workspaces postinstall"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.7",
+    "@monorepo/eslint-config": "*"
+  }
+}
