@@ -1,4 +1,3 @@
-
 import { createConnection } from 'typeorm';
 
 export const databaseProviders = [

@@ -1,6 +1,8 @@
+
 import { Injectable } from "@nestjs/common";
-import sendgrid from '@sendgrid/mail';
-import { stringify } from "querystring";
+import * as sendgrid from '@sendgrid/mail';
+import * as dotenv from 'dotenv';
+dotenv.config();
 sendgrid.setApiKey(process.env.SENDGRID_API);
 
 
@@ -9,21 +11,17 @@ export class Mail {
     to: string;
     from: string;
     subject: string;
-    html?:string;
-    constructor(mail: Mail){
-        Object.assign(mail);
-    }
+    html: string;
 }
 
 @Injectable()
 export class EmailProvider {
 
     async sendWelcomeMail(email: Mail) {
-
-        sendgrid.send(email);
+        return sendgrid.send(email);
     }
 
-    private templates(){
+    private templates() {
         return '';
     }
 
