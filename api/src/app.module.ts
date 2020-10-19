@@ -1,11 +1,20 @@
+
+import { PigModule } from './user-cases/Pig/coin-piggy.module';
+
+
+import { AuthModule } from './user-cases/Auth/auth.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './user-cases/Users/users.module';
 
 @Module({
-  imports: [UsersModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    PigModule,
+    AuthModule, UsersModule],
+  controllers: [
+    AppController],
+  providers: [
+    AppService],
 })
 export class AppModule { }

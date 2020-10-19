@@ -1,6 +1,7 @@
 
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import { CoinPiggy } from './coin-piggy.entity';
 
 
 @Entity()
@@ -10,6 +11,8 @@ export class Users {
         Object.assign(this, props);
         if (!id) {
             this.id = uuid();
+        } else {
+            this.id = id;
         }
     }
 
@@ -30,5 +33,9 @@ export class Users {
 
     @Column({ type: 'int' })
     age: number;
+
+    @OneToMany(() => CoinPiggy, coinPiggy => coinPiggy.user)
+    coinPiggy?: CoinPiggy
+
 
 }

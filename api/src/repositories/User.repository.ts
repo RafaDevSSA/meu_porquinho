@@ -21,12 +21,12 @@ export class UserRepository implements IUserRepository {
         throw new Error("Method not implemented.");
     }
 
-    findByEmail(email: string): Promise<Users> {
-        throw new Error("Method not implemented.");
+    async findByEmail(email: string): Promise<Users> {
+        return await this.usersRepository.findOne({ email });
     }
 
-    findById(id: string): Promise<Users> {
-        throw new Error("Method not implemented.");
+    async findById(id: string): Promise<Users> {
+        return await this.usersRepository.findOne({ id });
     }
 
     list(page?: number): Promise<Users[]> {
