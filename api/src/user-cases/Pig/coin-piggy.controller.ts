@@ -31,10 +31,10 @@ export class CoinPiggyController {
 
     @Get('/:id')
     async getById(@Request() data: req, @Res() response: Response) {
-        console.log('estranho');
         const coinPiggy = await this.getCoinPiggyByUserService.executeById(data.params.id);
         return response.json(coinPiggy);
     }
+    
     @Get('/byUserId/:user')
     async getByUser(@Request() data: req, @Res() response: Response) {
         const coinPiggies = await this.getCoinPiggyByUserService.execute(data.params.user);

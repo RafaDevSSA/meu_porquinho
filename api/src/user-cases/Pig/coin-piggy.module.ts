@@ -1,5 +1,5 @@
 import { CoinPiggyController } from './coin-piggy.controller';
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { coinPiggyProvider } from 'src/providers/coin-piggy.provider';
 import { DatabaseModule } from 'src/providers/database.module';
 import { UtilitarioModule } from 'src/providers/utilitario.module';
@@ -15,6 +15,13 @@ import { GoalsRepository } from 'src/repositories/Goals.repository';
 import { DeleteGoalService } from './Goals/DeleteGoal';
 import { GetGolsService } from './Goals/GetGoals';
 import { CoinPiggyMoneyController } from './CoinPiggyMoney/coin-piggy-money.controller';
+import { CreateCoinPiggyMoneyService } from './CoinPiggyMoney/CreateCoinPiggyMoney';
+import { CoinPiggyMoneyRepository } from 'src/repositories/CoinPiggyMoney.repository';
+import { CoinPiggyMoneyProvider } from 'src/providers/coin-piggy-money.provider';
+import { GetCoinPiggyMoneyService } from './CoinPiggyMoney/GetCoinPiggyMoney';
+import { HistoryProvider } from 'src/providers/history.provider';
+import { HistoryRepository } from 'src/repositories/HistoryRepository';
+import { LoggerMiddleware } from 'src/middlewares/logger.middleware';
 
 @Module({
     imports: [
@@ -23,14 +30,24 @@ import { CoinPiggyMoneyController } from './CoinPiggyMoney/coin-piggy-money.cont
         UsersModule],
     controllers: [
         CoinPiggyController, GoalsController, CoinPiggyMoneyController],
-    providers: [...coinPiggyProvider,...goalsProvider,
+    providers: [...coinPiggyProvider, ...goalsProvider, ...CoinPiggyMoneyProvider, ...HistoryProvider,
         CreateCoinPiggyService,
         GetCoinPiggyByUserService,
         DeleteCoinPiggyService,
         CreateGoalService,
         DeleteGoalService,
         GetGolsService,
+        CreateCoinPiggyMoneyService,
+        GetCoinPiggyMoneyService,
         CoinPiggyRepository,
-        GoalsRepository],
+        GoalsRepository,
+        CoinPiggyMoneyRepository,
+        HistoryRepository],
 })
-export class PigModule { }
+export class PigModule implements NestModule {
+    configure(consumer: MiddlewareConsumer) {
+        consumer
+            .apply(LoggerMiddleware)
+            .forRoutes('coin-piggy');
+    }
+}

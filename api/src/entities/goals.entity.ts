@@ -20,7 +20,7 @@ export class Goals {
     @Column({ type: 'date' })
     date;
 
-    @Column({ type: 'decimal' })
+    @Column({ type: 'decimal', precision: 10, scale: 2 })
     value;
 
     @ManyToOne(() => CoinPiggy, coinPiggy => coinPiggy.goals)

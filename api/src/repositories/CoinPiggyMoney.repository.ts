@@ -3,22 +3,24 @@ import { CoinPiggyMoney } from "src/entities/coin-piggy-money.entity";
 import { Repository } from "typeorm";
 
 @Injectable()
-export class CoinPiggyMoneyRepository  {
+export class CoinPiggyMoneyRepository {
 
     constructor(@Inject('COIN_PIGGY_MONEY_REPOSITORY') private coinPiggyMoneyRepository: Repository<CoinPiggyMoney>) { }
 
-    save(coinPiggyMoney: CoinPiggyMoney): Promise<CoinPiggyMoney> {
+    async save(coinPiggyMoney: CoinPiggyMoney, quantity: number): Promise<CoinPiggyMoney> {
+        await this.delete(coinPiggyMoney);
+        coinPiggyMoney.quantity = quantity;
         return this.coinPiggyMoneyRepository.save(coinPiggyMoney);
     }
 
-   /* getByCoinPiggy(idCoinPiggy: string): Promise<Goals[]> {
-        return this.goalsRepository.find({
-            where: { coinPiggy: idCoinPiggy }
+    getByCoinPiggy(idCoinPiggy: string): Promise<CoinPiggyMoney[]> {
+        return this.coinPiggyMoneyRepository.find({
+            where: { coinPiggyId: idCoinPiggy }
         })
     }
 
-    delete(id: number) {
-        return this.goalsRepository.delete(id);
-    }*/
+    delete(coinPiggyMoney: CoinPiggyMoney):Promise<any> {
+       return this.coinPiggyMoneyRepository.delete(coinPiggyMoney);
+    }
 
 }

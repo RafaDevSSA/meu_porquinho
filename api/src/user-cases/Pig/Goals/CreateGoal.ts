@@ -11,7 +11,6 @@ export class CreateGoalService {
 
     async execute(goalDTO: GoalDTO){
         const data = new Date(goalDTO.date);
-        console.log(data);
         const coinPiggy = await this.coinPiggyRepository.getById(goalDTO.coinPiggyId);
         if(coinPiggy){
             goalDTO.coinPiggy = coinPiggy;

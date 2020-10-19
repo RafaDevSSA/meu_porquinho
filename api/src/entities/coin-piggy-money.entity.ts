@@ -13,6 +13,6 @@ export class CoinPiggyMoney {
     moneyId: number;
 
     @Column()
-    quantity: number;
+    quantity?: number;
 
 }
