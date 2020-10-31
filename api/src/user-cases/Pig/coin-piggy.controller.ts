@@ -15,7 +15,7 @@ export class CoinPiggyController {
         private DeleteCoinPiggyService: DeleteCoinPiggyService
     ) { }
 
-    // @UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     @Post()
     async save(@Request() data: req, @Res() response: Response) {
         try {
@@ -28,19 +28,22 @@ export class CoinPiggyController {
         }
 
     }
-
+    
+    @UseGuards(JwtAuthGuard)
     @Get('/:id')
     async getById(@Request() data: req, @Res() response: Response) {
         const coinPiggy = await this.getCoinPiggyByUserService.executeById(data.params.id);
         return response.json(coinPiggy);
     }
-    
+
+    @UseGuards(JwtAuthGuard)
     @Get('/byUserId/:user')
     async getByUser(@Request() data: req, @Res() response: Response) {
         const coinPiggies = await this.getCoinPiggyByUserService.execute(data.params.user);
         return response.json(coinPiggies);
     }
-
+    
+    @UseGuards(JwtAuthGuard)
     @Delete('/:id')
     async delete(@Request() data: req, @Res() response: Response) {
         try {

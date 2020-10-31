@@ -5,6 +5,7 @@ import { UtilitarioModule } from 'src/providers/utilitario.module';
 import { UserRepository } from 'src/repositories/User.repository';
 import { AuthModule } from '../Auth/auth.module';
 import { CreateUser } from './CreateUser';
+import { DeleteUserService } from './DeleteUser';
 import { Login } from './Login';
 import { UsersController } from './users.controller';
 
@@ -15,7 +16,7 @@ import { UsersController } from './users.controller';
         UtilitarioModule,
         forwardRef(() => AuthModule),],
     controllers: [UsersController],
-    providers: [CreateUser, Login, ...userProvider, UserRepository],
+    providers: [CreateUser, DeleteUserService, Login, ...userProvider, UserRepository],
     exports: [UserRepository]
 
 })

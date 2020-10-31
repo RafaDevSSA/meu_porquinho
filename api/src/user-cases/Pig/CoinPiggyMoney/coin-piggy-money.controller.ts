@@ -1,5 +1,6 @@
-import { Controller, Get, Post, Request, Res } from '@nestjs/common';
+import { Controller, Get, Post, Request, Res, UseGuards } from '@nestjs/common';
 import { Response, Request as req } from 'express';
+import { JwtAuthGuard } from 'src/user-cases/Auth/jwt-auth.guard';
 import { CreateCoinPiggyMoneyService } from './CreateCoinPiggyMoney';
 import { GetCoinPiggyMoneyService } from './GetCoinPiggyMoney';
 
@@ -8,6 +9,7 @@ export class CoinPiggyMoneyController {
 
     constructor(private createCoinPiggyMoney: CreateCoinPiggyMoneyService, private getCoinPiggyMoney: GetCoinPiggyMoneyService) { }
 
+    @UseGuards(JwtAuthGuard)
     @Post()
     async save(@Request() data: req, @Res() response: Response) {
         try {
@@ -20,6 +22,7 @@ export class CoinPiggyMoneyController {
         }
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get('/:coinPiggyId')
     async get(@Request() data: req, @Res() response: Response){
         const coinPiggyMoney =  await this.getCoinPiggyMoney.execute(data.params.coinPiggyId);

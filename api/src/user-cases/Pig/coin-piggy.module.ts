@@ -22,12 +22,18 @@ import { GetCoinPiggyMoneyService } from './CoinPiggyMoney/GetCoinPiggyMoney';
 import { HistoryProvider } from 'src/providers/history.provider';
 import { HistoryRepository } from 'src/repositories/HistoryRepository';
 import { LoggerMiddleware } from 'src/middlewares/logger.middleware';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from '../Auth/constants';
 
 @Module({
     imports: [
         DatabaseModule,
         UtilitarioModule,
-        UsersModule],
+        UsersModule,
+        JwtModule.register({
+            secret: jwtConstants.secret,
+            signOptions: { expiresIn: '600s' },
+        }),],
     controllers: [
         CoinPiggyController, GoalsController, CoinPiggyMoneyController],
     providers: [...coinPiggyProvider, ...goalsProvider, ...CoinPiggyMoneyProvider, ...HistoryProvider,

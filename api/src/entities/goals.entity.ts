@@ -23,7 +23,7 @@ export class Goals {
     @Column({ type: 'decimal', precision: 10, scale: 2 })
     value;
 
-    @ManyToOne(() => CoinPiggy, coinPiggy => coinPiggy.goals)
+    @ManyToOne(() => CoinPiggy, coinPiggy => coinPiggy.goals,{cascade: ['remove']})
     coinPiggy?: CoinPiggy
 
 }

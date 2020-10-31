@@ -1,9 +1,10 @@
 import { Users } from "src/entities/user.entity";
 import { UserDTO } from "src/user-cases/Users/IUserDTO";
+import { DeleteResult } from "typeorm";
 
 export interface IUserRepository {
     save(user: UserDTO);
-    delete(id: number): Promise<void>;
+    delete(id: string): Promise<DeleteResult>;
     edit(user: Users): Promise<void>;
     findByEmail(email: string): Promise<Users>;
     findById(id: string): Promise<Users>;

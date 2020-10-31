@@ -3,6 +3,7 @@ import { UserRepository } from 'src/repositories/User.repository';
 import { CredentialsDTO } from './IcredentialsDTO';
 import { compare } from 'bcrypt';
 import { AuthProvider } from 'src/providers/auth.provider';
+import { UserView } from 'src/views/User.view';
 
 @Injectable()
 export class Login {
@@ -17,7 +18,8 @@ export class Login {
         if (user) {
             const passwordValidate = await compare(data.password, user.password);
             if(passwordValidate){
-                return this.authProvider.login(user);
+               const token = await this.authProvider.login(user);
+               return UserView.returnView(user,token);
             }
             throw new Error('Senha Incorreta.');
         } else {

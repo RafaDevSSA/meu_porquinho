@@ -1,5 +1,6 @@
-import { Controller, Post, Res, Request, Delete, Get } from '@nestjs/common';
+import { Controller, Post, Res, Request, Delete, Get, UseGuards } from '@nestjs/common';
 import { Response, Request as req } from 'express';
+import { JwtAuthGuard } from 'src/user-cases/Auth/jwt-auth.guard';
 import { GoalView } from 'src/views/Goal.view';
 import { CreateGoalService } from './CreateGoal';
 import { DeleteGoalService } from './DeleteGoal';
@@ -13,7 +14,8 @@ export class GoalsController {
         private deleteGoalService: DeleteGoalService,
         private getGoals: GetGolsService
     ) { }
-
+    
+    @UseGuards(JwtAuthGuard)
     @Post()
     async save(@Request() data: req, @Res() response: Response) {
         try {
@@ -26,12 +28,14 @@ export class GoalsController {
         }
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get('/:idCoinPiggy')
     async get(@Request() data: req, @Res() response: Response) {
         const goals = await this.getGoals.execute(data.params.idCoinPiggy);
         return response.json(goals);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Delete('/:id')
     async delete(@Request() data: req, @Res() response: Response) {
         try {
