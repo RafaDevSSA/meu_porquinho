@@ -7,7 +7,7 @@ import { CreateCoinPiggyService } from './CreateCoinPiggy';
 import { UsersModule } from '../Users/users.module';
 import { CoinPiggyRepository } from 'src/repositories/CoinPiggy.repository';
 import { GetCoinPiggyByUserService } from './GetCoinPiggyByUser';
-import { DeleteCoinPiggyService } from './deleteCoinPiggy';
+import { DeleteCoinPiggyService } from './DeleteCoinPiggy';
 import { GoalsController } from './Goals/goals.controller';
 import { goalsProvider } from 'src/providers/goals.provider';
 import { CreateGoalService } from './Goals/CreateGoal';
