@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { GoalsRepository } from 'src/repositories/goals.repository';
+import { GoalsRepository } from 'src/repositories/Goals.repository';
 
 @Injectable()
 export class GetGolsService {
