@@ -11,5 +11,5 @@ export default function Favorites() {
         <PageHeader title="Meus proffys favoritos."/>
 
     </View>
-    )
+    ) 
 }
